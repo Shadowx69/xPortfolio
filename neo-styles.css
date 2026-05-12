@@ -3466,8 +3466,8 @@ body[data-theme="dark"] .language-item:hover {
   }
   
   img[src="image/building.webp"] {
-    right: 15px !important;
-    height: 100px !important;
+    right: 0px !important;
+    height: 60px !important;
     opacity: 1 !important;
   }
   
