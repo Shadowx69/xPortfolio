@@ -22,7 +22,7 @@ html {
   justify-content: center;
   gap: 3rem;
   z-index: 99999;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .loader-overlay.hidden {
@@ -3407,12 +3407,12 @@ body[data-theme="dark"] .language-item:hover {
   }
   
   /* Inline decorative image adjustments */
-  img[src="image/pirat.png"] {
+  img[src="image/pirat.webp"] {
     height: 210px !important;
     right: 40px !important;
     opacity: 1 !important;
   }
-  img[src="image/building.png"] {
+  img[src="image/building.webp"] {
     right: 40px !important;
     height: 120px !important;
     opacity: 1 !important;
@@ -3458,14 +3458,14 @@ body[data-theme="dark"] .language-item:hover {
     top: -10px;
   }
   
-  img[src="image/pirat.png"] {
+  img[src="image/pirat.webp"] {
     display: block !important;
     height: 170px !important;
     right: 0px !important;
     opacity: 1 !important;
   }
   
-  img[src="image/building.png"] {
+  img[src="image/building.webp"] {
     right: 30px !important;
     height: 100px !important;
     opacity: 1 !important;

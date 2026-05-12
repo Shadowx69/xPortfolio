@@ -23,25 +23,20 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://haiderjeh.github.io">
+    <meta property="og:url" content="https://haiderzportfolio.vercel.app">
     <meta property="og:site_name" content="Haider Mirza">
     <meta property="og:title" content="Haider Mirza | Software Engineering Student">
     <meta property="og:description"
         content="Software Engineering Student with expertise in Full Stack Development and Machine Learning.">
-    <meta property="og:image" content="https://haiderjeh.github.io/image/social-cover.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Haider Mirza - Software Engineering Student">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://haiderjeh.github.io">
+    <meta property="twitter:url" content="https://haiderzportfolio.vercel.app">
     <meta property="twitter:title" content="Haider Mirza | Software Engineering Student">
     <meta property="twitter:description"
         content="Software Engineering Student with expertise in Full Stack Development and Machine Learning.">
-    <meta property="twitter:image" content="https://haiderjeh.github.io/image/social-cover.png">
-    <meta property="twitter:image:alt" content="Haider Mirza - Software Engineering Student">
+
 
     <!-- Canonical URL -->
 
@@ -72,35 +67,29 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
     <!-- External JavaScript -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 
     <!-- Structured Data / JSON-LD -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
-      "name": "Marjo Ballabani",
-      "url": "https://marjoballabani.me",
-      "jobTitle": "Senior Software Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Unicepta"
-      },
+      "name": "Haider Mirza",
+      "url": "https://haiderzportfolio.vercel.app",
+      "jobTitle": "Software Engineering Student",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "Munich",
-        "addressRegion": "Bavaria",
-        "addressCountry": "Germany"
+        "addressLocality": "Islamabad",
+        "addressCountry": "Pakistan"
       },
       "alumniOf": {
         "@type": "EducationalOrganization",
-        "name": "University of Tirana"
+        "name": "Bahria University"
       },
-      "knowsAbout": ["Software Engineering", "Full-Stack Development", "Cloud Computing", "Distributed Systems", "Microservices", "Node.js", "React", "Python", "Google Cloud", "AWS", "Docker", "Kubernetes"],
+      "knowsAbout": ["Software Engineering", "Full-Stack Development", "Machine Learning", "Python", "JavaScript", "React.js", "Node.js", "MongoDB", "SQL", "Docker"],
       "sameAs": [
-        "https://github.com/marjoballabani",
-        "https://linkedin.com/in/marjoballabani",
-        "https://stackoverflow.com/users/7563517/marjo-ballabani"
+        "https://github.com/Shadowx69",
+        "https://linkedin.com/in/haider606"
       ]
     }
     </script>
@@ -239,7 +228,7 @@
                 <div class="hero-right">
                     <div class="hero-image-wrapper">
                         <div class="tape-sticker"></div>
-                        <img src="image/avatar-gpt.png" alt="Haider Mirza" class="hero-photo" width="400"
+                        <img src="image/avatar-gpt.webp" alt="Haider Mirza" class="hero-photo" width="400"
                             height="400" fetchpriority="high">
                         <div class="deco-code">
                             <svg width="100" height="100" viewBox="0 0 100 100" fill="none"
@@ -356,7 +345,7 @@
             <section class="section" id="projects">
                 <div style="position: relative;">
                     <h2 class="section-title">PROJECTS</h2>
-                    <img src="image/pirat.png" alt="Pirate decoration"
+                    <img src="image/pirat.webp" alt="Pirate decoration" loading="lazy"
                          style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); height: 280px; width: auto; pointer-events: none; user-select: none;">
                 </div>
 
@@ -584,7 +573,7 @@
                                 <span class="badge">Expected 2027</span>
                             </div>
                             <p class="education-location"><i class="fas fa-map-marker-alt"></i> Islamabad, Pakistan</p>
-                            <img src="image/building.png" alt=""
+                            <img src="image/building.webp" alt="" loading="lazy"
                                  style="position: absolute; bottom: 0; right: calc(80px + 6em); height: 120px; width: auto; pointer-events: none; user-select: none; display: block;">
                         </div>
                     </div>
@@ -674,13 +663,25 @@
         }
         window.scrollTo(0, 0);
 
-        // Loading Screen
-        window.addEventListener('load', () => {
+        // Loading Screen — dismiss quickly, don't wait for heavy images
+        (function () {
             const loader = document.querySelector('.loader-overlay');
-            setTimeout(() => {
+            let dismissed = false;
+            function hideLoader() {
+                if (dismissed) return;
+                dismissed = true;
                 loader.classList.add('hidden');
-            }, 1200); // Hide after 1.2 seconds
-        });
+            }
+            // As soon as DOM is ready, wait a tiny beat for the animation to play, then dismiss
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 300));
+            } else {
+                // DOM already parsed (script is at the bottom)
+                setTimeout(hideLoader, 300);
+            }
+            // Hard safety-net: never block longer than 1.5s no matter what
+            setTimeout(hideLoader, 1500);
+        })();
 
         // Hero Photo Tilt on Scroll
         let photoTilted = false;
