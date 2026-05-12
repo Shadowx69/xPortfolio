@@ -3408,7 +3408,7 @@ body[data-theme="dark"] .language-item:hover {
   
   /* Inline decorative image adjustments */
   img[src="image/pirat.webp"] {
-    height: 210px !important;
+    height: 320px !important;
     right: 40px !important;
     opacity: 1 !important;
   }
