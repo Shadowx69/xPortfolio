@@ -520,24 +520,33 @@ class TerminalResume {
   }
 
   printWelcomeMessage(outputElement = this.output) {
-    const asciiArt = `██╗  ██╗ █████╗ ██╗██████╗ ███████╗██████╗ 
+    const isMobile = window.innerWidth < 768;
+
+    const asciiArtFull = `██╗  ██╗ █████╗ ██╗██████╗ ███████╗██████╗ 
 ██║  ██║██╔══██╗██║██╔══██╗██╔════╝██╔══██╗
 ███████║███████║██║██║  ██║█████╗  ██████╔╝
 ██╔══██║██╔══██║██║██║  ██║██╔══╝  ██╔══██╗
 ██║  ██║██║  ██║██║██████╔╝███████╗██║  ██║
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝`;
 
-    const divider = "─────────────────────────────────────────────────";
+    const asciiArtMobile = `╦ ╦╔═╗╦╔╦╗╔═╗╦═╗
+╠═╣╠═╣║ ║║║╣ ╠╦╝
+╩ ╩╩ ╩╩═╩╝╚═╝╩╚═`;
+
+    const asciiArt = isMobile ? asciiArtMobile : asciiArtFull;
+    const divider = isMobile
+      ? "───────────────────────────"
+      : "─────────────────────────────────────────────────";
 
     const welcome =
       this.wrapWithColor(asciiArt + "\n", "#d4843e") +
       this.wrapWithColor(divider + "\n", "#555555") +
       this.wrapWithColor(
-        "              Interactive Terminal Resume\n",
+        isMobile ? "  Interactive Terminal Resume\n" : "              Interactive Terminal Resume\n",
         "#888888"
       ) +
       this.wrapWithColor(
-        "         Software Engineering Student • Full Stack ML Enthusiast\n",
+        isMobile ? "  SE Student • Full Stack ML\n" : "         Software Engineering Student • Full Stack ML Enthusiast\n",
         "#666666"
       ) +
       this.wrapWithColor(divider + "\n\n", "#555555") +
@@ -555,80 +564,46 @@ class TerminalResume {
   }
 
   showHelp(outputElement = this.output) {
+    const m = window.innerWidth < 768;
     const title = this.wrapWithColor("🚀 Available Commands\n\n", "#ffff00");
+
+    const cmd = (name, desc) => {
+      if (m) {
+        return this.wrapWithColor("• " + name, "#98fb98") + " " + this.wrapWithColor(desc + "\n", "#ffffff");
+      }
+      const pad = " ".repeat(Math.max(1, 13 - name.length));
+      return this.wrapWithColor("• " + name, "#98fb98") + pad + this.wrapWithColor(desc + "\n", "#ffffff");
+    };
 
     const mainCommands =
       this.wrapWithColor("Main Commands:\n", "#00ffff") +
-      this.wrapWithColor("• help", "#98fb98") +
-      "       " +
-      this.wrapWithColor("Show this help message\n", "#ffffff") +
-      this.wrapWithColor("• about", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Display my professional summary\n", "#ffffff") +
-      this.wrapWithColor("• skills", "#98fb98") +
-      "     " +
-      this.wrapWithColor("View my technical expertise\n", "#ffffff") +
-      this.wrapWithColor("• experience", "#98fb98") +
-      " " +
-      this.wrapWithColor("Show my work history\n", "#ffffff") +
-      this.wrapWithColor("• education", "#98fb98") +
-      "  " +
-      this.wrapWithColor("View my educational background\n", "#ffffff") +
-      this.wrapWithColor("• contact", "#98fb98") +
-      "    " +
-      this.wrapWithColor("Get my contact information\n", "#ffffff") +
-      this.wrapWithColor("• clear", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Clear the terminal screen\n", "#ffffff");
+      cmd("help", "Show this help message") +
+      cmd("about", "Display my professional summary") +
+      cmd("skills", "View my technical expertise") +
+      cmd("experience", "Show my work history") +
+      cmd("education", "View my educational background") +
+      cmd("contact", "Get my contact information") +
+      cmd("clear", "Clear the terminal screen");
 
     const utilityCommands =
       "\n" +
       this.wrapWithColor("Utility Commands:\n", "#00ffff") +
-      this.wrapWithColor("• projects", "#98fb98") +
-      "   " +
-      this.wrapWithColor("View my project showcase\n", "#ffffff") +
-      this.wrapWithColor("• skills-visual", "#98fb98") +
-      " " +
-      this.wrapWithColor("Show skills visualization\n", "#ffffff") +
-      this.wrapWithColor("• game", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Play a mini-game\n", "#ffffff") +
-      this.wrapWithColor("• matrix", "#98fb98") +
-      "    " +
-      this.wrapWithColor("Start Matrix digital rain effect\n", "#ffffff") +
-      this.wrapWithColor("• calc", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Calculate mathematical expressions\n", "#ffffff") +
-      this.wrapWithColor("• pdf", "#98fb98") +
-      "       " +
-      this.wrapWithColor("Download resume as PDF\n", "#ffffff") +
-      this.wrapWithColor("• exit", "#98fb98") +
-      "      " +
-      this.wrapWithColor("Return to homepage\n", "#ffffff");
+      cmd("projects", "View my project showcase") +
+      cmd("skills-visual", "Show skills visualization") +
+      cmd("game", "Play a mini-game") +
+      cmd("matrix", "Start Matrix rain effect") +
+      cmd("calc", "Calculate expressions") +
+      cmd("pdf", "Download resume as PDF") +
+      cmd("exit", "Return to homepage");
 
-    const shortcuts =
+    const shortcuts = m ? "" :
       "\n" +
       this.wrapWithColor("Shortcuts:\n", "#666666") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("↑/↓", "#666666") +
-      "         " +
-      this.wrapWithColor("Navigate command history\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Tab", "#666666") +
-      "         " +
-      this.wrapWithColor("Auto-complete commands\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+L", "#666666") +
-      "      " +
-      this.wrapWithColor("Clear the screen\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+Shift+H", "#666666") +
-      " " +
-      this.wrapWithColor("Split horizontally\n", "#444444") +
-      this.wrapWithColor("• ", "#666666") +
-      this.wrapWithColor("Ctrl+Shift+V", "#666666") +
-      " " +
-      this.wrapWithColor("Split vertically", "#444444");
+      this.wrapWithColor("• ", "#666666") + this.wrapWithColor("↑/↓", "#666666") + "         " + this.wrapWithColor("Navigate command history\n", "#444444") +
+      this.wrapWithColor("• ", "#666666") + this.wrapWithColor("Tab", "#666666") + "         " + this.wrapWithColor("Auto-complete commands\n", "#444444") +
+      this.wrapWithColor("• ", "#666666") + this.wrapWithColor("Ctrl+L", "#666666") + "      " + this.wrapWithColor("Clear the screen\n", "#444444") +
+      this.wrapWithColor("• ", "#666666") + this.wrapWithColor("Ctrl+Shift+H", "#666666") + " " + this.wrapWithColor("Split horizontally\n", "#444444") +
+      this.wrapWithColor("• ", "#666666") + this.wrapWithColor("Ctrl+Shift+V", "#666666") + " " + this.wrapWithColor("Split vertically", "#444444");
 
     const help = title + mainCommands + utilityCommands + shortcuts;
 
@@ -639,61 +614,63 @@ class TerminalResume {
   }
 
   showAbout(outputElement = this.output) {
+    const m = window.innerWidth < 768;
+    const boxTop = m
+      ? "┌──────────────────────────────────┐"
+      : "┌─────────────────────────────────────────────────────────┐";
+    const boxBot = m
+      ? "└──────────────────────────────────┘"
+      : "└─────────────────────────────────────────────────────────┘";
+    const boxTop2 = m
+      ? "╭──────────────────────────────────╮"
+      : "╭───────────────────────────────────────────────────────╮";
+    const boxBot2 = m
+      ? "╰──────────────────────────────────╯"
+      : "╰───────────────────────────────────────────────────────╯";
+
     const about = `<span style="color: #ff8c00; font-weight: bold;">✨ About Me</span>
 
-${this.wrapWithColor(
-  "┌─────────────────────────────────────────────────────────┐",
-  "#ff8c00"
-)}
+${this.wrapWithColor(boxTop, "#ff8c00")}
 ${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Software Engineering student at Bahria University,",
+      m ? "SE student at Bahria University," : "Software Engineering student at Bahria University,",
       "#ffffff"
     )}
 ${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "passionate about Machine Learning & Full Stack Dev.",
+      m ? "ML & Full Stack Dev enthusiast." : "passionate about Machine Learning & Full Stack Dev.",
       "#ffffff"
     )}
-${this.wrapWithColor(
-  "└─────────────────────────────────────────────────────────┘",
-  "#ff8c00"
-)}
+${this.wrapWithColor(boxBot, "#ff8c00")}
 
 ${this.wrapWithColor("⚡ Experience", "#ff8c00")}
 ${this.wrapWithColor(
-  "   Building models and scalable software solutions using",
+  m ? " Building scalable software with" : "   Building models and scalable software solutions using",
   "#ffffff"
 )}
-${this.wrapWithColor("   Python, React, NodeJs, and Scikit-learn", "#ff8c00")}
+${this.wrapWithColor(m ? " Python, React, Node, Scikit" : "   Python, React, NodeJs, and Scikit-learn", "#ff8c00")}
 
 ${this.wrapWithColor("⚡ Passion", "#ff8c00")}
 ${this.wrapWithColor(
-  "   Transforming innovative ideas into high-quality applications",
+  m ? " Turning ideas into quality apps" : "   Transforming innovative ideas into high-quality applications",
   "#ffffff"
 )}
 ${this.wrapWithColor(
-  "   with a focus on AI integration and modern web tech",
+  m ? " with AI & modern web tech" : "   with a focus on AI integration and modern web tech",
   "#ffffff"
 )}
 
 ${this.wrapWithColor("⚡ Strengths", "#ff8c00")}
 ${this.wrapWithColor(
-  "   Quick learner with expertise in designing robust,",
+  m ? " Quick learner, expert in robust" : "   Quick learner with expertise in designing robust,",
   "#ffffff"
 )}
-${this.wrapWithColor("   high-performance machine learning models", "#ffffff")}
+${this.wrapWithColor(m ? " ML model design" : "   high-performance machine learning models", "#ffffff")}
 
-${this.wrapWithColor(
-  "╭───────────────────────────────────────────────────────╮",
-  "#ff8c00"
-)}
+${this.wrapWithColor(boxTop2, "#ff8c00")}
 ${this.wrapWithColor("│", "#ff8c00")} ${this.wrapWithColor(
-      "Ready to bring your innovative ideas to life!",
+      m ? "Ready to bring ideas to life!" : "Ready to bring your innovative ideas to life!",
       "#ffffff"
     )} ${this.wrapWithColor("│", "#ff8c00")}
-${this.wrapWithColor(
-  "╰───────────────────────────────────────────────────────╯",
-  "#ff8c00"
-)}`;
+${this.wrapWithColor(boxBot2, "#ff8c00")}`;
 
     const aboutDiv = document.createElement("div");
     aboutDiv.innerHTML = about;
